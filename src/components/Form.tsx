@@ -5,18 +5,24 @@ import Input from "./Input";
 interface InputProps {
   todo: Todos;
   setTodo: Dispatch<SetStateAction<Todos>>;
+  submitTodo: () => void;
 }
 
-const Form = ({ todo, setTodo }: InputProps) => {
-  const { todoName, todoTitle } = todo;
+const Form = ({ todo, setTodo, submitTodo }: InputProps) => {
+  const { todoName } = todo;
 
   return (
-    <form action="">
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        submitTodo();
+      }}
+    >
       <div className="flex flex-col">
         <label htmlFor="">Todo</label>
         <Input name={"todoName"} value={todoName} setTodo={setTodo} />
-        <Input name={"todoTitle"} value={todoTitle} setTodo={setTodo} />
       </div>
+      <button type="submit">Add</button>
     </form>
   );
 };
