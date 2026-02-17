@@ -1,21 +1,29 @@
 import type { ChangeEvent } from "react";
+import type { Dispatch, SetStateAction } from "react";
 import type { Todos } from "../types/Todos";
 
-interface InputProps {
+interface InputValue {
   name: string;
-  setTodo: React.Dispatch<React.SetStateAction<Todos>>;
+  setTodo: Dispatch<SetStateAction<Todos>>;
 }
 
-const Input = ({ name, setTodo }: InputProps) => {
-  const handleChar = (e: ChangeEvent<HTMLInputElement>) => {
+const Input = ({ name, setTodo }: InputValue) => {
+  const handleTodo = (e: ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
     const value = e.target.value;
 
-    setTodo((preVal) => {
-      return { ...preVal, [name]: value };
+    setTodo((prev) => {
+      return { ...prev, [name]: value };
     });
   };
-  return <input type="text" name={name} value={name} onChange={handleChar} />;
+  return (
+    <input
+      className="border border-gray-500 rounded"
+      type="text"
+      name={name}
+      onChange={handleTodo}
+    />
+  );
 };
 
 export default Input;
