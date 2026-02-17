@@ -8,13 +8,14 @@ interface InputProps {
 }
 
 const Form = ({ todo, setTodo }: InputProps) => {
-  const { name } = todo;
+  const { todoName, todoTitle } = todo;
 
   return (
     <form action="">
       <div className="flex flex-col">
         <label htmlFor="">Todo</label>
-        <Input name={name} setTodo={setTodo} />
+        <Input name={"todoName"} value={todoName} setTodo={setTodo} />
+        <Input name={"todoTitle"} value={todoTitle} setTodo={setTodo} />
       </div>
     </form>
   );

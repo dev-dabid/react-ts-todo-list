@@ -4,13 +4,13 @@ import type { Todos } from "../types/Todos";
 
 interface InputValue {
   name: string;
+  value: string;
   setTodo: Dispatch<SetStateAction<Todos>>;
 }
 
-const Input = ({ name, setTodo }: InputValue) => {
+const Input = ({ name, value, setTodo }: InputValue) => {
   const handleTodo = (e: ChangeEvent<HTMLInputElement>) => {
-    const name = e.target.name;
-    const value = e.target.value;
+    const { name, value } = e.target;
 
     setTodo((prev) => {
       return { ...prev, [name]: value };
@@ -21,6 +21,7 @@ const Input = ({ name, setTodo }: InputValue) => {
       className="border border-gray-500 rounded"
       type="text"
       name={name}
+      value={value}
       onChange={handleTodo}
     />
   );
