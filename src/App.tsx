@@ -10,7 +10,6 @@ const App = () => {
   });
 
   const [todoList, setTodoList] = useState<Todos[]>([]);
-  const [isChecked, setIsChecked] = useState<boolean>(false);
 
   const submitTodo = () => {
     if (!todo.todoName.trim()) return;
@@ -26,7 +25,7 @@ const App = () => {
 
   const setChecked = (id: number, checkVal: boolean) => {
     console.log(checkVal);
-    setIsChecked((prev) => !prev);
+
     setTodoList((prev): Todos[] => {
       return prev.map((item) => {
         return item.id === id ? { ...item, isChecked: checkVal } : item;
@@ -34,23 +33,39 @@ const App = () => {
     });
   };
 
+  const deleteTodo = (id: number) => {
+    setTodoList((prev) => {
+      return prev.filter((item) => {
+        return item.id !== id;
+      });
+    });
+  };
+
   return (
     <div className="flex justify-center flex-col max-w-50">
       <Form todo={todo} setTodo={setTodo} submitTodo={submitTodo} />
-      <div className="flex flex-col">
+      <div className="flex flex-col gap-3">
         {todoList.map((todo) => {
           return (
-            <div className="flex items-center gap-2">
-              <input
-                type="checkbox"
-                checked={todo.isChecked}
-                onChange={(e: ChangeEvent<HTMLInputElement>) =>
-                  setChecked(todo.id, e.target.checked)
-                }
-              />
-              <p className={`${todo.isChecked ? "line-through" : ""}`}>
-                {todo.todoName}
-              </p>
+            <div className="flex justify-between">
+              <div className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={todo.isChecked}
+                  onChange={(e: ChangeEvent<HTMLInputElement>) =>
+                    setChecked(todo.id, e.target.checked)
+                  }
+                />
+                <p className={`${todo.isChecked ? "line-through" : ""}`}>
+                  {todo.todoName}
+                </p>
+              </div>
+              <button
+                className="bg-amber-600"
+                onClick={() => deleteTodo(todo.id)}
+              >
+                remove
+              </button>
             </div>
           );
         })}
