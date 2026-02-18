@@ -13,6 +13,7 @@ const Form = ({ todo, setTodo, submitTodo }: InputProps) => {
 
   return (
     <form
+      className="flex items-center"
       onSubmit={(e) => {
         e.preventDefault();
         submitTodo();
@@ -20,9 +21,15 @@ const Form = ({ todo, setTodo, submitTodo }: InputProps) => {
     >
       <div className="flex flex-col">
         <label htmlFor="">Todo</label>
-        <Input name={"todoName"} value={todoName} setTodo={setTodo} />
+        <div className="flex gap-3">
+          <Input name={"todoName"} value={todoName} setTodo={setTodo} />
+          <div>
+            <button className="bg-amber-400" type="submit">
+              Add
+            </button>
+          </div>
+        </div>
       </div>
-      <button type="submit">Add</button>
     </form>
   );
 };
